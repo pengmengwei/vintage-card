@@ -15,7 +15,6 @@ function App() {
   
   // Form State
   const [fromName, setFromName] = useState('');
-  const [fromEmail, setFromEmail] = useState('');
   const [toName, setToName] = useState('');
   const [toEmail, setToEmail] = useState('');
   const [message, setMessage] = useState('');

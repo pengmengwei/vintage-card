@@ -1,5 +1,3 @@
-import { toast } from 'react-hot-toast';
-
 const SEEDREAM_API_URL = "https://ark.cn-beijing.volces.com/api/v3/images/generations"; 
 // 火山引擎 Endpoint ID 通常需要用户提供，这里我们留空或等待用户输入
 // 如果用户没有提供 Endpoint ID，代码中应处理这种情况
