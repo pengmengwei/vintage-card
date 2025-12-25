@@ -65,30 +65,34 @@ function App() {
 
       // Save to Supabase
       console.log("Attempting to save to Supabase...");
-      try {
-        const { data, error: dbError } = await supabase
-          .from('cards')
-          .insert([
-            {
-              sender_name: fromName || null,
-              recipient_name: toName || null,
-              message: message || null,
-              image_url: url,
-              style: '1920s'
-            }
-          ])
-          .select();
+      if (supabase) {
+        try {
+          const { data, error: dbError } = await supabase
+            .from('cards')
+            .insert([
+              {
+                sender_name: fromName || null,
+                recipient_name: toName || null,
+                message: message || null,
+                image_url: url,
+                style: '1920s'
+              }
+            ])
+            .select();
 
-        if (dbError) {
-          console.error("Failed to save to history:", dbError);
-          toast.error(`Saving failed: ${dbError.message}`);
-        } else {
-          console.log("Card saved to history successfully!", data);
-          toast.success("Saved to Gallery!");
+          if (dbError) {
+            console.error("Failed to save to history:", dbError);
+            toast.error(`Saving failed: ${dbError.message}`);
+          } else {
+            console.log("Card saved to history successfully!", data);
+            toast.success("Saved to Gallery!");
+          }
+        } catch (dbErr) {
+          console.error("Error saving to database:", dbErr);
+          toast.error("Database connection error");
         }
-      } catch (dbErr) {
-        console.error("Error saving to database:", dbErr);
-        toast.error("Database connection error");
+      } else {
+        console.warn("Supabase is not configured. Skipping save.");
       }
     } catch (err: any) {
       console.error(err);
