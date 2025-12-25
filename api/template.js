@@ -1,0 +1,386 @@
+
+export const htmlTemplate = `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=600, initial-scale=1.0">
+    <title>Vintage Greeting Card</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css" rel="stylesheet">
+    <style>
+        /* Loading Fonts */
+        @font-face {
+            font-family: 'VintageHeader';
+            src: url('https://assets-persist.lovart.ai/agent-static-assets/ZCOOLXiaoWei-Regular.ttf');
+        }
+        @font-face {
+            font-family: 'VintageBody';
+            src: url('https://assets-persist.lovart.ai/agent-static-assets/NotoSerifCJKsc-Regular.otf');
+        }
+        @font-face {
+            font-family: 'Handwritten';
+            src: url('https://assets-persist.lovart.ai/agent-static-assets/LongCang-Regular.ttf');
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+        width: 600px;
+        margin: 0 auto;
+        background-color: #f5f5f5; /* Light background for email client compatibility */
+    }
+
+        .card-container {
+            width: 600px;
+            background: repeating-linear-gradient(
+                45deg,
+                #A93C32,
+                #A93C32 20px,
+                #E8DCCA 20px,
+                #E8DCCA 40px
+            );
+            padding: 24px;
+            position: relative;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+        }
+
+        .inner-paper {
+            background-color: #F7F0DF;
+            /* Sunburst Pattern */
+            background-image: 
+                radial-gradient(circle at center, transparent 0%, rgba(139, 69, 19, 0.05) 100%),
+                repeating-conic-gradient(
+                    from 0deg, 
+                    rgba(212, 176, 106, 0.15) 0deg 10deg, 
+                    transparent 10deg 20deg
+                );
+            border-radius: 8px;
+            padding: 50px 35px;
+            position: relative;
+            border: 2px solid #D4B06A;
+            box-shadow: inset 0 0 60px rgba(62, 43, 38, 0.15);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        /* Grain/Noise Effect simulated with CSS */
+        .texture-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(circle, transparent 50%, rgba(62, 43, 38, 0.2) 100%);
+            pointer-events: none;
+            z-index: 5;
+            mix-blend-mode: multiply;
+        }
+
+        /* Decorative Corners using CSS & SVG */
+        .corner-decor {
+            position: absolute;
+            width: 90px;
+            height: 90px;
+            z-index: 2;
+            pointer-events: none;
+        }
+        .top-left { top: 12px; left: 12px; }
+        .top-right { top: 12px; right: 12px; transform: scaleX(-1); }
+        .bottom-right { bottom: 12px; right: 12px; transform: scale(-1); }
+        .bottom-left { bottom: 12px; left: 12px; transform: scaleY(-1); }
+
+        .corner-svg {
+            width: 100%;
+            height: 100%;
+            fill: none;
+        }
+
+        /* Top Greeting Section */
+        .header {
+            text-align: center;
+            margin-bottom: 35px;
+            position: relative;
+            z-index: 10;
+            width: 100%;
+        }
+
+        .header-decor {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+            color: #A93C32;
+        }
+
+        .line {
+            height: 1px;
+            width: 40px;
+            background-color: #A93C32;
+        }
+
+        .header h1 {
+            font-family: 'VintageHeader', serif;
+            font-size: 28px;
+            color: #1C4E4F;
+            letter-spacing: 1px;
+            line-height: 1.4;
+            text-shadow: 1px 1px 0px rgba(232, 220, 202, 0.8);
+        }
+
+        /* Image Placeholder Section */
+        .image-frame {
+            width: 100%;
+            /* Aspect ratio roughly matches user's vertical image */
+            aspect-ratio: 4/5; 
+            background-color: #E8DCCA;
+            border: 3px double #1C4E4F;
+            border-radius: 16px;
+            margin-bottom: 35px;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 6px 6px 0px rgba(28, 78, 79, 0.15);
+            z-index: 10;
+            overflow: hidden;
+        }
+
+        .placeholder-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #A93C32;
+            opacity: 0.6;
+            border: 2px dashed #A93C32;
+            width: 90%;
+            height: 90%;
+            border-radius: 12px;
+        }
+
+        .placeholder-content i {
+            font-size: 42px;
+            margin-bottom: 12px;
+        }
+
+        .placeholder-content span {
+            font-family: 'VintageHeader', serif;
+            font-size: 18px;
+            letter-spacing: 2px;
+        }
+
+        /* Message Area */
+        .message-section {
+            width: 100%;
+            margin-bottom: 40px;
+            text-align: center;
+            z-index: 10;
+            padding: 0 10px;
+        }
+
+        .message-label {
+            display: inline-block;
+            background-color: #1C4E4F;
+            color: #F7F0DF;
+            font-family: 'VintageBody', sans-serif;
+            font-size: 14px;
+            padding: 5px 16px;
+            border-radius: 50px;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .lines-container {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            padding: 0 10px;
+        }
+
+        .text-line {
+            width: 100%;
+            border-bottom: 1px solid #A93C32;
+            position: relative;
+        }
+        
+        .text-line::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 100%;
+            border-bottom: 1px dotted rgba(169, 60, 50, 0.5);
+        }
+
+        /* Footer / Signature */
+        .footer {
+            text-align: center;
+            z-index: 10;
+            position: relative;
+            width: 100%;
+            padding-bottom: 10px;
+        }
+
+        .sincerely {
+            font-family: 'VintageBody', serif;
+            font-size: 14px;
+            color: #555;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+        }
+
+        .sender-name {
+            font-family: 'Handwritten', cursive;
+            font-size: 42px;
+            color: #1C4E4F;
+            transform: rotate(-3deg);
+            display: inline-block;
+            text-shadow: 2px 2px 0px rgba(247, 240, 223, 1);
+        }
+
+        /* Vintage Stamp Decoration */
+        .stamp-mark {
+            position: absolute;
+            bottom: 40px;
+            right: 20px;
+            width: 80px;
+            height: 80px;
+            border: 2px solid #A93C32;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            color: #A93C32;
+            font-family: 'VintageHeader', serif;
+            font-size: 10px;
+            font-weight: bold;
+            opacity: 0.5;
+            transform: rotate(-15deg);
+            z-index: 8;
+            pointer-events: none;
+            background-image: radial-gradient(circle, transparent 60%, rgba(169, 60, 50, 0.1) 100%);
+        }
+
+        /* Corner SVG Style */
+        .corner-shape {
+            fill: #1C4E4F;
+        }
+        .corner-accent {
+            fill: #A93C32;
+        }
+        .corner-detail {
+            fill: #D4B06A;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="card-container">
+        <div class="inner-paper">
+            
+            <!-- Vignette Overlay -->
+            <div class="texture-overlay"></div>
+
+            <!-- Decorative Corners -->
+            <div class="corner-decor top-left">
+                <svg viewBox="0 0 100 100" class="corner-svg">
+                    <path d="M10,10 L50,10 C40,40 10,50 10,10 Z" class="corner-shape" opacity="0.9"/>
+                    <path d="M15,15 L15,55 L18,55 L18,18 L55,18 L55,15 Z" class="corner-accent"/>
+                    <circle cx="25" cy="25" r="4" class="corner-detail"/>
+                    <path d="M60,10 L90,10 L90,12 L60,12 Z" class="corner-shape" opacity="0.6"/>
+                    <path d="M10,60 L10,90 L12,90 L12,60 Z" class="corner-shape" opacity="0.6"/>
+                </svg>
+            </div>
+            <div class="corner-decor top-right">
+                <svg viewBox="0 0 100 100" class="corner-svg">
+                    <path d="M10,10 L50,10 C40,40 10,50 10,10 Z" class="corner-shape" opacity="0.9"/>
+                    <path d="M15,15 L15,55 L18,55 L18,18 L55,18 L55,15 Z" class="corner-accent"/>
+                    <circle cx="25" cy="25" r="4" class="corner-detail"/>
+                    <path d="M60,10 L90,10 L90,12 L60,12 Z" class="corner-shape" opacity="0.6"/>
+                    <path d="M10,60 L10,90 L12,90 L12,60 Z" class="corner-shape" opacity="0.6"/>
+                </svg>
+            </div>
+            <div class="corner-decor bottom-left">
+                <svg viewBox="0 0 100 100" class="corner-svg">
+                    <path d="M10,10 L50,10 C40,40 10,50 10,10 Z" class="corner-shape" opacity="0.9"/>
+                    <path d="M15,15 L15,55 L18,55 L18,18 L55,18 L55,15 Z" class="corner-accent"/>
+                    <circle cx="25" cy="25" r="4" class="corner-detail"/>
+                    <path d="M60,10 L90,10 L90,12 L60,12 Z" class="corner-shape" opacity="0.6"/>
+                    <path d="M10,60 L10,90 L12,90 L12,60 Z" class="corner-shape" opacity="0.6"/>
+                </svg>
+            </div>
+            <div class="corner-decor bottom-right">
+                <svg viewBox="0 0 100 100" class="corner-svg">
+                    <path d="M10,10 L50,10 C40,40 10,50 10,10 Z" class="corner-shape" opacity="0.9"/>
+                    <path d="M15,15 L15,55 L18,55 L18,18 L55,18 L55,15 Z" class="corner-accent"/>
+                    <circle cx="25" cy="25" r="4" class="corner-detail"/>
+                    <path d="M60,10 L90,10 L90,12 L60,12 Z" class="corner-shape" opacity="0.6"/>
+                    <path d="M10,60 L10,90 L12,90 L12,60 Z" class="corner-shape" opacity="0.6"/>
+                </svg>
+            </div>
+
+            <!-- Greeting -->
+            <div class="header">
+                <div class="header-decor">
+                    <i class="ri-star-s-fill" style="font-size: 12px; transform: rotate(45deg);"></i>
+                    <div class="line"></div>
+                    <i class="ri-star-s-fill" style="font-size: 16px;"></i>
+                    <div class="line"></div>
+                    <i class="ri-star-s-fill" style="font-size: 12px; transform: rotate(45deg);"></i>
+                </div>
+                <h1>Dear [Recipient Name]</h1>
+            </div>
+
+            <!-- Main Image Area -->
+            <!-- IMAGE_START -->
+            <div class="image-frame">
+                <div class="placeholder-content">
+                    <i class="ri-camera-lens-line"></i>
+                    <span>生成图片</span>
+                </div>
+            </div>
+            <!-- IMAGE_END -->
+
+            <!-- Message Area -->
+            <div class="message-section">
+                <div class="message-label">
+                    <i class="ri-edit-line" style="vertical-align: middle; margin-right: 4px;"></i> 留言区域
+                </div>
+                <!-- MESSAGE_START -->
+                <div class="lines-container">
+                    <div class="text-line"></div>
+                    <div class="text-line"></div>
+                    <div class="text-line"></div>
+                </div>
+                <!-- MESSAGE_END -->
+            </div>
+
+            <!-- Signature -->
+            <div class="footer">
+                <p class="sincerely">Yours sincerely</p>
+                <div class="sender-name">[Sender Name]</div>
+            </div>
+
+            <!-- Decorative Stamp -->
+            <div class="stamp-mark">
+                <span>POST</span>
+                <span style="font-size:18px; margin: 2px 0;">★</span>
+                <span>CARD</span>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>`;

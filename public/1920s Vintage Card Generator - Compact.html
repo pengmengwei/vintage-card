@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1920s Vintage Treasure</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css" rel="stylesheet">
+    <style>
+        @font-face {
+            font-family: 'ZCOOLXiaoWei';
+            src: url('https://assets-persist.lovart.ai/agent-static-assets/ZCOOLXiaoWei-Regular.ttf');
+        }
+        @font-face {
+            font-family: 'NotoSerifCJKsc';
+            src: url('https://assets-persist.lovart.ai/agent-static-assets/NotoSerifCJKsc-Regular.otf');
+        }
+        @font-face {
+            font-family: 'NotoSerifCJKsc-Bold';
+            src: url('https://assets-persist.lovart.ai/agent-static-assets/NotoSerifCJKsc-Bold.otf');
+        }
+
+        :root {
+            --bg-dark: #1a120b;
+            --container-bg: #f2e8d5;
+            --border-dark: #2a1d15;
+            --accent-gold: #cfaa76;
+            --accent-brown: #5d4037;
+            --accent-burgundy: #561c1c;
+            --text-dark: #3e2723;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            width: 1920px;
+            height: 1080px;
+            background-color: var(--bg-dark);
+            background-image: 
+                radial-gradient(circle at 50% 50%, #2d2116 0%, #0f0a06 100%);
+            font-family: 'NotoSerifCJKsc', serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Film Grain Texture */
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.08'/%3E%3C/svg%3E");
+            opacity: 0.6;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Vignette */
+        body::after {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at center, transparent 50%, rgba(0,0,0,0.8) 100%);
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .main-title {
+            font-family: 'ZCOOLXiaoWei', serif;
+            font-size: 72px;
+            color: var(--accent-gold);
+            text-align: center;
+            margin-bottom: 25px;
+            text-shadow: 2px 4px 8px rgba(0,0,0,0.8);
+            letter-spacing: 3px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .main-title::after {
+            content: "";
+            display: block;
+            width: 400px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent-gold), transparent);
+            margin: 10px auto 0;
+            opacity: 0.7;
+        }
+
+        .container-wrapper {
+            position: relative;
+            z-index: 10;
+            width: 1600px; /* ~83% of 1920 */
+            height: 800px;
+            border-radius: 20px;
+            padding: 5px;
+            background: linear-gradient(135deg, #4e3629, #2a1d15);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.8);
+        }
+
+        .main-container {
+            width: 100%;
+            height: 100%;
+            background-color: var(--container-bg);
+            border-radius: 16px;
+            border: 6px solid #1a0f0a;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            padding: 40px 50px;
+            overflow: hidden;
+        }
+
+        /* Vintage Background Texture inside Card */
+        .main-container::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0l30 30-30 30L0 30z' fill='%23dccfa6' fill-opacity='0.15'/%3E%3C/svg%3E");
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        /* Inner Decorative Border */
+        .deco-border {
+            position: absolute;
+            top: 15px; left: 15px; right: 15px; bottom: 15px;
+            border: 2px solid var(--accent-brown);
+            border-radius: 10px;
+            pointer-events: none;
+            opacity: 0.5;
+        }
+        
+        .deco-border::after {
+            content: "";
+            position: absolute;
+            top: 4px; left: 4px; right: 4px; bottom: 4px;
+            border: 1px dashed var(--accent-brown);
+            border-radius: 6px;
+        }
+
+        .content-row {
+            display: flex;
+            flex: 1;
+            gap: 50px;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 5;
+        }
+
+        /* Left Section: Image Placeholder */
+        .left-section {
+            flex: 0 0 40%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .photo-box {
+            width: 100%;
+            height: 100%;
+            background: #fff;
+            border-radius: 12px;
+            border: 3px solid #2a1d15;
+            box-shadow: 
+                inset 0 0 20px rgba(0,0,0,0.1),
+                5px 5px 15px rgba(0,0,0,0.2);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .photo-box-inner {
+            width: 90%;
+            height: 90%;
+            border: 1px dashed #bbb;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #888;
+            font-size: 20px;
+            background-color: #fafafa;
+        }
+
+        .photo-box i {
+            font-size: 64px;
+            color: #d1c4b0;
+            margin-bottom: 15px;
+        }
+
+        /* Photo Corners */
+        .corner-deco {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            border: 4px solid var(--accent-brown);
+            z-index: 10;
+        }
+        .c-tl { top: 0; left: 0; border-right: 0; border-bottom: 0; border-top-left-radius: 10px; }
+        .c-tr { top: 0; right: 0; border-left: 0; border-bottom: 0; border-top-right-radius: 10px; }
+        .c-bl { bottom: 0; left: 0; border-right: 0; border-top: 0; border-bottom-left-radius: 10px; }
+        .c-br { bottom: 0; right: 0; border-left: 0; border-top: 0; border-bottom-right-radius: 10px; }
+
+        /* Right Section: Form */
+        .right-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding-top: 10px;
+            gap: 20px;
+        }
+
+        .input-row {
+            display: flex;
+            gap: 30px;
+        }
+
+        .input-group {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .group-header {
+            font-family: 'ZCOOLXiaoWei', serif;
+            font-size: 24px;
+            color: var(--accent-burgundy);
+            border-bottom: 2px solid var(--accent-brown);
+            padding-bottom: 5px;
+            display: inline-block;
+            margin-bottom: 5px;
+        }
+
+        .form-field {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .form-label {
+            font-size: 14px;
+            font-weight: bold;
+            color: var(--text-dark);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        input, textarea {
+            width: 100%;
+            background: linear-gradient(to bottom, #fdfbf7, #f2ece4);
+            border: 2px solid #a1887f;
+            border-radius: 6px;
+            padding: 12px 15px;
+            font-family: 'NotoSerifCJKsc', serif;
+            font-size: 18px;
+            color: #3e2723;
+            box-shadow: 
+                inset 1px 1px 4px rgba(0,0,0,0.1),
+                0 1px 0 rgba(255,255,255,0.8);
+            transition: all 0.3s ease;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: var(--accent-burgundy);
+            background: #fff;
+            box-shadow: 0 0 8px rgba(86, 28, 28, 0.2);
+        }
+
+        textarea {
+            resize: none;
+            height: 100%;
+            min-height: 150px;
+            line-height: 1.5;
+        }
+
+        .message-group {
+            flex: 2;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Footer: Buttons */
+        .footer-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 25px;
+            border-top: 2px solid rgba(93, 64, 55, 0.2);
+            gap: 25px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .vintage-btn {
+            flex: 1;
+            padding: 18px 0;
+            border: 2px solid #3e2723;
+            border-radius: 8px;
+            background: linear-gradient(180deg, #5d4037 0%, #3e2723 100%);
+            color: #eaddcf;
+            font-family: 'NotoSerifCJKsc-Bold', serif;
+            font-size: 18px;
+            cursor: pointer;
+            box-shadow: 
+                inset 0 1px 0 rgba(255,255,255,0.1),
+                0 4px 8px rgba(0,0,0,0.3);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.2s ease;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+        }
+
+        .vintage-btn:hover {
+            transform: translateY(-2px);
+            background: linear-gradient(180deg, #6d4c41 0%, #4e342e 100%);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.4);
+            color: #fff;
+        }
+
+        .vintage-btn:active {
+            transform: translateY(1px);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .btn-primary {
+            background: linear-gradient(180deg, #8b2a2a 0%, #561c1c 100%);
+            border-color: #3e1212;
+            color: #ffecd2;
+        }
+        .btn-primary:hover {
+            background: linear-gradient(180deg, #a03535 0%, #6d2424 100%);
+        }
+
+        .vintage-btn i {
+            font-size: 22px;
+        }
+
+        /* Decorative Screws */
+        .screw {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: radial-gradient(circle, #bcaaa4 0%, #5d4037 100%);
+            border-radius: 50%;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.5);
+            z-index: 20;
+        }
+        .screw::after {
+            content: "";
+            position: absolute;
+            top: 50%; left: 2px; right: 2px;
+            height: 2px;
+            background: #3e2723;
+            transform: translateY(-50%) rotate(45deg);
+        }
+        .s-tl { top: 10px; left: 10px; }
+        .s-tr { top: 10px; right: 10px; }
+        .s-bl { bottom: 10px; left: 10px; }
+        .s-br { bottom: 10px; right: 10px; }
+
+    </style>
+</head>
+<body>
+
+    <h1 class="main-title">Treasure every moment we share</h1>
+
+    <div class="container-wrapper">
+        <div class="main-container">
+            <!-- Decorative Border Lines -->
+            <div class="deco-border"></div>
+            
+            <!-- Screws in corners -->
+            <div class="screw s-tl"></div>
+            <div class="screw s-tr"></div>
+            <div class="screw s-bl"></div>
+            <div class="screw s-br"></div>
+
+            <div class="content-row">
+                <!-- Left: Photo Placeholder -->
+                <div class="left-section">
+                    <div class="photo-box">
+                        <div class="corner-deco c-tl"></div>
+                        <div class="corner-deco c-tr"></div>
+                        <div class="corner-deco c-bl"></div>
+                        <div class="corner-deco c-br"></div>
+                        <div class="photo-box-inner">
+                            <i class="ri-image-2-line"></i>
+                            <span>默认图片</span>
+                            <span style="font-size: 14px; margin-top: 5px; color: #aaa;">(Select an image to preview)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Form -->
+                <div class="right-section">
+                    <div class="input-row">
+                        <!-- From You -->
+                        <div class="input-group">
+                            <div class="group-header">From You</div>
+                            <div class="form-field">
+                                <label class="form-label">Name</label>
+                                <input type="text" placeholder="Your name">
+                            </div>
+                            <div class="form-field">
+                                <label class="form-label">Email</label>
+                                <input type="email" placeholder="Your email address">
+                            </div>
+                        </div>
+
+                        <!-- To Someone Special -->
+                        <div class="input-group">
+                            <div class="group-header">To Someone Special</div>
+                            <div class="form-field">
+                                <label class="form-label">Name</label>
+                                <input type="text" placeholder="Recipient's name">
+                            </div>
+                            <div class="form-field">
+                                <label class="form-label">Email</label>
+                                <input type="email" placeholder="Recipient's email address">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Message Area -->
+                    <div class="input-group message-group">
+                        <div class="group-header">你的留言</div>
+                        <textarea placeholder="Type your heartfelt message here..."></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom Buttons -->
+            <div class="footer-row">
+                <button class="vintage-btn btn-primary">
+                    <i class="ri-upload-cloud-2-line"></i> 上传照片
+                </button>
+                <button class="vintage-btn">
+                    <i class="ri-magic-line"></i> 生成贺片
+                </button>
+                <button class="vintage-btn">
+                    <i class="ri-save-3-line"></i> 保存贺卡
+                </button>
+                <button class="vintage-btn">
+                    <i class="ri-mail-send-line"></i> 发送邮件
+                </button>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
