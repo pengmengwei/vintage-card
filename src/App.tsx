@@ -179,7 +179,7 @@ function App() {
         {/* Donate Button */}
         <button 
             onClick={handleDonate}
-            className="fixed top-6 right-6 z-50 bg-[#FFD700] text-[#1C4E4F] px-4 py-2 rounded-full font-bold shadow-lg hover:bg-[#FDB931] transition-all flex items-center gap-2 border-2 border-[#1C4E4F] transform hover:scale-105"
+            className="fixed top-6 left-6 z-50 bg-[#FFD700] text-[#1C4E4F] px-4 py-2 rounded-full font-bold shadow-lg hover:bg-[#FDB931] transition-all flex items-center gap-2 border-2 border-[#1C4E4F] transform hover:scale-105"
             style={{ fontFamily: "'Caveat', cursive", fontSize: '18px' }}
         >
             <i className="ri-cup-line"></i>
