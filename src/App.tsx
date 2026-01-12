@@ -153,10 +153,41 @@ function App() {
     }
   };
 
+  const handleDonate = async () => {
+    const toastId = toast.loading("Connecting to Stripe...");
+    try {
+      const response = await fetch('/api/donate', {
+        method: 'POST',
+      });
+      const data = await response.json();
+      
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        throw new Error(data.error || "Failed to create checkout session");
+      }
+    } catch (error: any) {
+      console.error("Donate Error:", error);
+      toast.error("Could not connect to payment provider", { id: toastId });
+    }
+  };
+
   return (
     <div className="main-container">
         <Toaster position="top-center" />
+        
+        {/* Donate Button */}
+        <button 
+            onClick={handleDonate}
+            className="fixed top-6 right-6 z-50 bg-[#FFD700] text-[#1C4E4F] px-4 py-2 rounded-full font-bold shadow-lg hover:bg-[#FDB931] transition-all flex items-center gap-2 border-2 border-[#1C4E4F] transform hover:scale-105"
+            style={{ fontFamily: "'Caveat', cursive", fontSize: '18px' }}
+        >
+            <i className="ri-cup-line"></i>
+            <span>Support Us</span>
+        </button>
+
         {/* Corner decorations */}
+
         <div className="corner-deco corner-tl"></div>
         <div className="corner-deco corner-tr"></div>
         <div className="corner-deco corner-bl"></div>
